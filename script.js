@@ -4,8 +4,8 @@
  * column until a player gets four-in-a-row (horiz, vert, or diag) or until
  * board fills (tie)
  */
-
- var WIDTH = 7;
+const displayTurn = document.getElementById("displayTurn");
+var WIDTH = 7;
  var HEIGHT = 6;
  
  var currPlayer = 1; // active player: 1 or 2
@@ -18,7 +18,7 @@
  
  function makeBoard() {
     board = [];
-    for (let y = 0; y < HEIGHT; y++){
+    for (let y = 0; y < HEIGHT; y++){ 
         let column = [];
         for (let x = 0; x < WIDTH; x++){
             column.push(null);
@@ -57,6 +57,11 @@
    }
  }
  
+ displayTurn.classList.add("p1");
+ displayTurn.innerText = "Player 1's turn!";
+ 
+ 
+
  /** findSpotForCol: given column x, return top empty y (null if filled) */
  
  function findSpotForCol(x) {
@@ -73,9 +78,10 @@
    const newPiece = document.createElement('div')
    newPiece.classList.add('piece');
     newPiece.classList.add('p' + currPlayer);
-
+    
     let pieceLocation = document.getElementById(`${y}-${x}`);
     pieceLocation.append(newPiece);
+    
  }
  
  /** endGame: announce game end */
@@ -98,7 +104,10 @@
  
    // place piece in board and add to HTML table
    // TODO: add line to update in-memory board
+  
    placeInTable(y, x);
+   board[y][x] = currPlayer; 
+
  
    // check for win
    if (checkForWin()) {
@@ -110,6 +119,24 @@
  
    // switch players
    // TODO: switch currPlayer 1 <-> 2
+   if (currPlayer === 1) currPlayer = 2;
+      else currPlayer = 1;
+ 
+
+   // update the hover of the top row for the current player
+  //  topRowHoverDivs = document.querySelectorAll("#column-top td div");
+  //  topRowHoverDivs.forEach(div => {
+  //    div.classList.remove("p1");
+  //    div.classList.remove("p2");
+  //    div.classList.add(`p${currPlayer}`);
+  //  });
+
+   
+   // update the heading to display which player's turn it is
+   displayTurn.innerText = `Player ${currPlayer}'s turn!`;
+  //  displayTurn.classList.remove("p1");
+  //  displayTurn.classList.remove("p2");
+   displayTurn.classList.add(`p${currPlayer}`);
  }
  
  /** checkForWin: check board cell-by-cell for "does a win start here?" */

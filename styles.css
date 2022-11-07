@@ -25,7 +25,7 @@
   }
   
   #column-top td:hover {
-    background-color: gold;
+    background-color: salmon;
   }
 
   body {
@@ -48,4 +48,8 @@
 
   .piece {
     margin: 5px;
+  }
+
+  #displayTurn {
+    font-family: Chalkduster, fantasy;
   }
